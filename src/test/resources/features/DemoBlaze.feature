@@ -5,7 +5,6 @@ Feature: DemoBlaze API Testing
     * def baseUrl = 'https://api.demoblaze.com'
     * header 'content-type' = 'application/json'
 
-  # 1. Crear un nuevo usuario en signup
   Scenario: Crear un nuevo usuario en signup
     Given url baseUrl + '/signup'
     And request { "username": "and12and32", "password": "cXlZZA==" }
@@ -13,7 +12,6 @@ Feature: DemoBlaze API Testing
     Then status 200
     And print response
 
-  # 2. Intentar crear un usuario ya existente en signup
   Scenario: Intentar crear un usuario ya existente en signup
     Given url baseUrl + '/signup'
     And request { "username": "usuario_existente", "password": "ZXhpc3Rlcg==" }
@@ -23,7 +21,6 @@ Feature: DemoBlaze API Testing
     And print response
 
 
-  # 3. Usuario y password correcto en login
   Scenario: Usuario y password correcto en login
     Given url baseUrl + '/login'
     And request { "username": "and12and", "password": "cXlZZA==" }
