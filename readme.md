@@ -3,31 +3,39 @@
 Este proyecto de prueba automatizada utiliza Karate para probar los servicios REST de la página DemoBlaze (https://www.demoblaze.com) relacionados con el registro (signup) y el inicio de sesión (login).
 
 ## Requisitos previos:
-1. Tener instalado **Java JDK 8** o superior.
-2. Tener instalado **Gradle**.
-3. Tener instalado **IntelliJ IDEA** o un editor de tu preferencia.
-4. Asegurarse de tener acceso a internet para las pruebas contra la API.
+
+- Máquina local con el sistema operativo Windows 10+
+- IDE IntelliJ versión 2023.1
+- JDK versión 1.8 (debe estar en la variable de entorno)
+- Gradle versión 7.4 (debe estar en la variable de entorno)
+- Dependencias en el archivo `build.gradle`:
+  - `com.intuit.karate:karate-junit5:1.4.0`
+  - `io.cucumber:cucumber-java:7.2.3`
+  - `io.cucumber:cucumber-junit:7.2.3`
 
 ## Pasos para la configuración y ejecución:
 
 ### 1. Clonar el repositorio:
    - Clona este proyecto desde tu repositorio o directorio de trabajo local.
 
-### 2. Configurar Gradle:
-   - Si no está configurado, asegúrate de tener **Gradle** instalado en tu sistema. Puedes verificarlo ejecutando el siguiente comando en la terminal:
+### 2. Configurar Variables:
+Asegúrate de que las variables de entorno para JAVA_HOME y GRADLE_HOME estén configuradas correctamente en tu sistema.
 
 
-### 3. Abrir el proyecto en IntelliJ:
+### 3. Abrir el proyecto en IntelliJ y configurar Gradle:
    - Abre el proyecto en **IntelliJ** seleccionando el directorio raíz del proyecto.
+   - Ejecuta el siguiente comando para descargar todas las dependencias definidas en el archivo `build.gradle`:
 
-### 4. Estructura del proyecto:
-   - **src/test/java/karate/demo**: Contiene los runners de prueba que ejecutan los tests de Karate.
-   - **src/test/resources/features**: Contiene  archivos `.feature` donde se definen los escenarios de prueba para los endpoints de la API.
-   - **build.gradle**: Archivo de configuración de Gradle.
-   --Las clases DemoBlaze contiene el codigo general para todas las pruebas
-   --La clase TestSuite fue creada para realizar pruebas en orden en caso de ser necesario
+  ./gradlew build
 
-### 5. Ejecución de las pruebas:
+### 4. Instrucciones para ejecutar los tests
+
+Navega hasta el archivo PetStoreRunner.java en el directorio src/test/java.
+Haz clic derecho sobre el archivo y selecciona Run 'PetStoreRunner' para ejecutar las pruebas.
+Después de que se ejecuten las pruebas, verifica los reportes generados en build/reports/tests/test/index.html.
+Abre el archivo index.html en tu navegador para visualizar los resultados de las pruebas.
+
+### 5. Ejecución de las pruebas en terminal:
    - Para ejecutar las pruebas desde la terminal, navega al directorio raíz del proyecto y ejecuta el siguiente comando:
      ```
      gradle test o ./gradlew clean test
@@ -37,5 +45,5 @@ Este proyecto de prueba automatizada utiliza Karate para probar los servicios RE
    - Los resultados de las pruebas se generarán en formato HTML en el directorio `build/reports/tests/test/index.html`.
 
 ### 7. Instrucciones adicionales:
-   - Si deseas ejecutar las pruebas desde IntelliJ IDEA, simplemente se abre el archivo de prueba a probar, por ejemplo `LoginTest.java` y ejecuta el test directamente desde el editor usando el botón de "Run".
-   - En las feature DemoBlaze y SignUp se debe cambiar el username por uno nuevo en cada ejecución
+Si deseas realizar modificaciones en las pruebas, revisa los archivos .feature en src/test/resources/features y el código Java en src/test/java para entender cómo están estructuradas las pruebas.
+Para más información sobre Karate y Cucumber, puedes consultar la documentación de Karate y la documentación de Cucumber.
