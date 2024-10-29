@@ -1,6 +1,6 @@
 # Instrucciones para la ejecución del proyecto
 
-Este proyecto de prueba automatizada utiliza Karate para probar los servicios REST de la página PetStore ([https://www.demoblaze.com](https://petstore.swagger.io/)) relacionados con: 
+Este proyecto de prueba automatizada utiliza Karate para probar los servicios REST de la página PetStore (https://petstore.swagger.io/) relacionados con: 
   - Añadir una mascota a la tienda
   - Consultar la mascota ingresada previamente (Búsqueda por ID)
   - Actualizar el nombre de la mascota y el estatus a "sold"
