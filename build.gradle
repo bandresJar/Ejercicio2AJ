@@ -13,16 +13,13 @@ dependencies {
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation 'com.intuit.karate:karate-junit5:1.4.0'
-
+    testImplementation 'io.cucumber:cucumber-java:7.2.3'
+    testImplementation 'io.cucumber:cucumber-junit:7.2.3'
 }
 
 tasks.test {
     useJUnitPlatform()
-
+    testLogging {
+        events 'passed', 'failed', 'skipped'
+    }
 }
-
-
-
-
-
-
