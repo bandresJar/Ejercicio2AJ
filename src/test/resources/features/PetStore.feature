@@ -8,9 +8,6 @@ Feature: PetStore API Test
   Background:
     * url 'https://petstore.swagger.io/v2'
     * header 'content-type' = 'application/json'
-    * def username = 'TestAndres'
-    * def password = 'pass1234'
-    * def petId = 30021001
 
     * def userJson =
     """
@@ -57,15 +54,15 @@ Feature: PetStore API Test
     Then status 200
     And match response.code == 200
 
-    Given path '/user/' + username
+    Given path '/user/', userJson.username
     When method GET
     Then status 200
-    And match response.username == username
+    And match response.username == userJson.username
 
   Scenario: Login de usuario
     Given path '/user/login'
-    And param username = username
-    And param password = password
+    And param username = userJson.username
+    And param password = userJson.password
     When method GET
     Then status 200
     And match response.message contains 'logged in user session'
@@ -75,31 +72,30 @@ Feature: PetStore API Test
     And request petJson
     When method POST
     Then status 200
-    And match response.name == 'DogiTest'
-    And match response.status == 'pruebaKarate'
+    And match response.name == petJson.name
+    And match response.status == petJson.status
     * def addedPetId = response.id
 
   Scenario: Buscar mascota por ID
-    Given path '/pet/' + petId
+    Given path '/pet/', petJson.id
     When method GET
     Then status 200
-    And match response.name == 'DogiTest'
-    And match response.status == 'pruebaKarate'
+    And match response.name == petJson.name
+    And match response.status == petJson.status
 
   Scenario: Modificar mascota
     Given path '/pet'
     And request updatedPetJson
     When method PUT
     Then status 200
-    And match response.name == 'TestPerrito'
-    And match response.status == 'sold'
+    And match response.name == updatedPetJson.name
+    And match response.status == updatedPetJson.status
 
   Scenario: Buscar mascotas por estatus
     Given path '/pet/findByStatus'
     And param status = 'sold'
     When method GET
     Then status 200
-    * def foundPet = karate.filter(response, function(pet) { return pet.id == petId && pet.status == 'sold' })[0]
-    * match foundPet.id == petId
+    * def foundPet = karate.filter(response, function(pet) { return pet.id == petJson.id && pet.status == 'sold' })[0]
+    * match foundPet.id == petJson.id
     * match foundPet.status == 'sold'
-
