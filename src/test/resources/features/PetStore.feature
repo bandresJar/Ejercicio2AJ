@@ -9,43 +9,13 @@ Feature: PetStore API Test
     * url 'https://petstore.swagger.io/v2'
     * header 'content-type' = 'application/json'
 
-    * def userJson =
-    """
-    {
-      "id": 0,
-      "username": "TestAndres",
-      "firstName": "Andres",
-      "lastName": "UserPrueba",
-      "email": "andres@gmail.com",
-      "password": "pass1234",
-      "phone": "123456789",
-      "userStatus": 0
-    }
-    """
-
-    * def petJson =
-    """
-    {
-      "id": 30021001,
-      "category": { "id": 0, "name": "DogiTest" },
-      "name": "DogiTest",
-      "photoUrls": ["https://sticker.ly/s/NSDULD"],
-      "tags": [{ "id": 0, "name": "friendly" }],
-      "status": "pruebaKarate"
-    }
-    """
-
-    * def updatedPetJson =
-    """
-    {
-      "id": 30021001,
-      "category": { "id": 0, "name": "DogiTest" },
-      "name": "TestPerrito",
-      "photoUrls": ["https://sticker.ly/s/NSDULD"],
-      "tags": [{ "id": 0, "name": "friendly" }],
-      "status": "sold"
-    }
-    """
+    * def userJson = read('../data/user.json')
+    * def petJson = read('../data/pet.json')
+    * def updatedPetJson = read('../data/updatedPet.json')
+    * def expectedUserResponse = read('../data/expectedUserResponse.json')
+    * def expectedLoginResponse = read('../data/expectedLoginResponse.json')
+    * def expectedPetResponse = read('../data/expectedPetResponse.json')
+    * def expectedUpdatedPetResponse = read('../data/expectedUpdatedPetResponse.json')
 
   Scenario: Crear y validar usuario
     Given path '/user'
@@ -57,7 +27,7 @@ Feature: PetStore API Test
     Given path '/user/', userJson.username
     When method GET
     Then status 200
-    And match response.username == userJson.username
+    And match response == expectedUserResponse
 
   Scenario: Login de usuario
     Given path '/user/login'
@@ -65,7 +35,7 @@ Feature: PetStore API Test
     And param password = userJson.password
     When method GET
     Then status 200
-    And match response.message contains 'logged in user session'
+    And match response == expectedLoginResponse
 
   Scenario: Agregar y validar mascota
     Given path '/pet'
@@ -75,21 +45,24 @@ Feature: PetStore API Test
     And match response.name == petJson.name
     And match response.status == petJson.status
     * def addedPetId = response.id
+    And match response == expectedPetResponse
 
   Scenario: Buscar mascota por ID
     Given path '/pet/', petJson.id
     When method GET
     Then status 200
-    And match response.name == petJson.name
-    And match response.status == petJson.status
+    And match response.name == expectedPetResponse.name
+    And match response.status == expectedPetResponse.status
+    And match response == expectedPetResponse
 
   Scenario: Modificar mascota
     Given path '/pet'
     And request updatedPetJson
     When method PUT
     Then status 200
-    And match response.name == updatedPetJson.name
-    And match response.status == updatedPetJson.status
+    And match response.name == expectedUpdatedPetResponse.name
+    And match response.status == expectedUpdatedPetResponse.status
+    And match response == expectedUpdatedPetResponse
 
   Scenario: Buscar mascotas por estatus
     Given path '/pet/findByStatus'
