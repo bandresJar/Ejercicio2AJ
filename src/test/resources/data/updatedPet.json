@@ -1,0 +1,8 @@
+{
+  "id": 30021001,
+  "category": { "id": 0, "name": "DogiTest" },
+  "name": "TestPerrito",
+  "photoUrls": ["https://sticker.ly/s/NSDULD"],
+  "tags": [{ "id": 0, "name": "friendly" }],
+  "status": "sold"
+}
